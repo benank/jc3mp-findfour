@@ -5,7 +5,7 @@ $(document).ready(function()
     let my_turn = false;
     let me_first = false;
 
-    $('.window').fadeOut("fast", function() {$('.window').css('visibility', 'hidden'); $("#close-button").css("color", "white");});
+    $('.window').fadeOut(1, function() {$('.window').css('visibility', 'hidden'); $("#close-button").css("color", "white");});
 
     function ResetBoard()
     {
@@ -102,6 +102,7 @@ $(document).ready(function()
         }
     }
 
+
     $(".close-icon").hover(function()
     {
         $("#close-button").css("color", "red");
@@ -123,7 +124,22 @@ $(document).ready(function()
     {
         let piece_inside = document.createElement("div");
         piece_inside.className = "piece inside " + color;
-        $("#piece_" + column + "" + row).append(piece_inside);
+
+        let i = 1;
+        let interval = setInterval(() => 
+        {
+            if (i > 1)
+            {
+                $("#piece_" + column + "" + (i - 1)).empty();
+            }
+            $("#piece_" + column + "" + i).append(piece_inside);
+            if (i >= row)
+            {
+                clearInterval(interval);
+            }
+            i++;
+        }, 60);
+        
     })
 
     jcmp.AddEvent('findfour/ChangeTurn', (myturn) => 
