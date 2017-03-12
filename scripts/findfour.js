@@ -86,7 +86,7 @@ class FindFour
             jcmp.events.CallRemote('PlacePiece', p, column, row, (index == 0) ? "red" : "blue");
         });
 
-        let winner = this.check_for_winner();
+        let winner = this.check_for_winner(column, row, index);
         if (winner != null)
         {
             this.player_win(winner);
@@ -117,8 +117,40 @@ class FindFour
 
     }
 
-    check_for_winner()
+    check_for_winner(c, r, p)
     {
+        if (this.board[c][r] == p) // If we hit a piece, check around it
+        {
+            if (c + 3 < 8) // Horizontally
+            {
+                if (this.board[c+1][r] == p && this.board[c+2][r] == p && this.board[c+3][r] == p)
+                {
+                    return p;
+                }
+            }
+            if (r + 3 < 8) // Vertically
+            {
+                if (this.board[c][r+1] == p && this.board[c][r+2] == p && this.board[c][r+3] == p)
+                {
+                    return p;
+                }
+            }
+            if (r - 3 > 0 && c - 3 > 0) // Diagonal
+                {
+                if (this.board[c-1][r-1] == p && this.board[c-2][r-2] == p && this.board[c-3][r-3] == p)
+                {
+                    return p;
+                }
+            }
+            if (r + 3 < 8 && c - 3 > 0) // Diagonal
+            {
+                if (this.board[c-1][r+1] == p && this.board[c-2][r+2] == p && this.board[c-3][r+3] == p)
+                {
+                    return p;
+                }
+            }
+        }
+
         let filled = 0; // Keep track of all filled spaces in case of cats game
         for (let c = 1; c <= 7; c++)
         {
@@ -127,43 +159,10 @@ class FindFour
                 if (this.board[c][r] != -1)
                 {
                     filled++;
-                    for (let p = 0; p <= 1; p++) // Check for both players
-                    {
-                        if (this.board[c][r] == p) // If we hit a piece, check around it
-                        {
-                            if (c + 3 < 8) // Horizontally
-                            {
-                                if (this.board[c+1][r] == p && this.board[c+2][r] == p && this.board[c+3][r] == p)
-                                {
-                                    return p;
-                                }
-                            }
-                            if (r + 3 < 8) // Vertically
-                            {
-                                if (this.board[c][r+1] == p && this.board[c][r+2] == p && this.board[c][r+3] == p)
-                                {
-                                    return p;
-                                }
-                            }
-                            if (r - 3 > 0 && c - 3 > 0) // Diagonal
-                            {
-                                if (this.board[c-1][r-1] == p && this.board[c-2][r-2] == p && this.board[c-3][r-3] == p)
-                                {
-                                    return p;
-                                }
-                            }
-                            if (r + 3 < 8 && c - 3 > 0) // Diagonal
-                            {
-                                if (this.board[c-1][r+1] == p && this.board[c-2][r+2] == p && this.board[c-3][r+3] == p)
-                                {
-                                    return p;
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
+
         if (filled == 49)
         {
             return "cats";
