@@ -59,6 +59,7 @@ class FindFour
 
     place_piece(index, column)
     {
+        column = parseInt(column);
         if (column > 7 || column < 1 || this.turn != index || this.gameover)
         {
             return;
@@ -119,35 +120,59 @@ class FindFour
 
     check_for_winner(c, r, p)
     {
-        if (this.board[c][r] == p) // If we hit a piece, check around it
+        if (c + 3 < 8) // Horizontally
         {
-            if (c + 3 < 8) // Horizontally
+            if (this.board[c+1][r] == p && this.board[c+2][r] == p && this.board[c+3][r] == p)
             {
-                if (this.board[c+1][r] == p && this.board[c+2][r] == p && this.board[c+3][r] == p)
-                {
-                    return p;
-                }
+                return p;
             }
-            if (r + 3 < 8) // Vertically
+        }
+
+        if (c - 3 > 0) // Horizontally
+        {
+            if (this.board[c-1][r] == p && this.board[c-2][r] == p && this.board[c-3][r] == p)
             {
-                if (this.board[c][r+1] == p && this.board[c][r+2] == p && this.board[c][r+3] == p)
-                {
-                    return p;
-                }
+                return p;
             }
-            if (r - 3 > 0 && c - 3 > 0) // Diagonal
-                {
-                if (this.board[c-1][r-1] == p && this.board[c-2][r-2] == p && this.board[c-3][r-3] == p)
-                {
-                    return p;
-                }
-            }
-            if (r + 3 < 8 && c - 3 > 0) // Diagonal
+        }
+
+        if (r + 3 < 8) // Vertically
+        {
+            if (this.board[c][r+1] == p && this.board[c][r+2] == p && this.board[c][r+3] == p)
             {
-                if (this.board[c-1][r+1] == p && this.board[c-2][r+2] == p && this.board[c-3][r+3] == p)
-                {
-                    return p;
-                }
+                return p;
+            }
+        }
+
+        if (r - 3 > 0 && c - 3 > 0) // Diagonal
+        {
+            if (this.board[c-1][r-1] == p && this.board[c-2][r-2] == p && this.board[c-3][r-3] == p)
+            {
+                return p;
+            }
+        }
+
+        if (r + 3 < 8 && c + 3 < 8) // Diagonal
+        {
+            if (this.board[c+1][r+1] == p && this.board[c+2][r+2] == p && this.board[c+3][r+3] == p)
+            {
+                return p;
+            }
+        }
+
+        if (r + 3 < 8 && c - 3 > 0) // Diagonal
+        {
+            if (this.board[c-1][r+1] == p && this.board[c-2][r+2] == p && this.board[c-3][r+3] == p)
+            {
+                return p;
+            }
+        }
+
+        if (r - 3 > 0 && c + 3 < 8) // Diagonal
+        {
+            if (this.board[c+1][r-1] == p && this.board[c+2][r-2] == p && this.board[c+3][r-3] == p)
+            {
+                return p;
             }
         }
 
