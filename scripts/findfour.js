@@ -118,64 +118,9 @@ class FindFour
 
     }
 
-    check_for_winner(c, r, p)
+    check_for_winner()
     {
-        if (c + 3 < 8) // Horizontally
-        {
-            if (this.board[c+1][r] == p && this.board[c+2][r] == p && this.board[c+3][r] == p)
-            {
-                return p;
-            }
-        }
-
-        if (c - 3 > 0) // Horizontally
-        {
-            if (this.board[c-1][r] == p && this.board[c-2][r] == p && this.board[c-3][r] == p)
-            {
-                return p;
-            }
-        }
-
-        if (r + 3 < 8) // Vertically
-        {
-            if (this.board[c][r+1] == p && this.board[c][r+2] == p && this.board[c][r+3] == p)
-            {
-                return p;
-            }
-        }
-
-        if (r - 3 > 0 && c - 3 > 0) // Diagonal
-        {
-            if (this.board[c-1][r-1] == p && this.board[c-2][r-2] == p && this.board[c-3][r-3] == p)
-            {
-                return p;
-            }
-        }
-
-        if (r + 3 < 8 && c + 3 < 8) // Diagonal
-        {
-            if (this.board[c+1][r+1] == p && this.board[c+2][r+2] == p && this.board[c+3][r+3] == p)
-            {
-                return p;
-            }
-        }
-
-        if (r + 3 < 8 && c - 3 > 0) // Diagonal
-        {
-            if (this.board[c-1][r+1] == p && this.board[c-2][r+2] == p && this.board[c-3][r+3] == p)
-            {
-                return p;
-            }
-        }
-
-        if (r - 3 > 0 && c + 3 < 8) // Diagonal
-        {
-            if (this.board[c+1][r-1] == p && this.board[c+2][r-2] == p && this.board[c+3][r-3] == p)
-            {
-                return p;
-            }
-        }
-
+        
         let filled = 0; // Keep track of all filled spaces in case of cats game
         for (let c = 1; c <= 7; c++)
         {
@@ -184,10 +129,43 @@ class FindFour
                 if (this.board[c][r] != -1)
                 {
                     filled++;
+                    for (let p = 0; p <= 1; p++) // Check for both players
+                    {
+                        if (this.board[c][r] == p) // If we hit a piece, check around it
+                        {
+                            if (c + 3 < 8) // Horizontally
+                            {
+                                if (this.board[c+1][r] == p && this.board[c+2][r] == p && this.board[c+3][r] == p)
+                                {
+                                    return p;
+                                }
+                            }
+                            if (r + 3 < 8) // Vertically
+                            {
+                                if (this.board[c][r+1] == p && this.board[c][r+2] == p && this.board[c][r+3] == p)
+                                {
+                                    return p;
+                                }
+                            }
+                            if (r - 3 > 0 && c - 3 > 0) // Diagonal
+                            {
+                                if (this.board[c-1][r-1] == p && this.board[c-2][r-2] == p && this.board[c-3][r-3] == p)
+                                {
+                                    return p;
+                                }
+                            }
+                            if (r + 3 < 8 && c - 3 > 0) // Diagonal
+                            {
+                                if (this.board[c-1][r+1] == p && this.board[c-2][r+2] == p && this.board[c-3][r+3] == p)
+                                {
+                                    return p;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-
         if (filled == 49)
         {
             return "cats";
@@ -196,6 +174,7 @@ class FindFour
         {
             return null;
         }
+
     }
 
     quit(index)
