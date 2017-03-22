@@ -1,5 +1,5 @@
 
-jcmp.events.AddRemoteCallable('ClickSpace', (player, column) => 
+jcmp.events.AddRemoteCallable('findfour/ClickSpace', (player, column) => 
 {
     if (typeof player.findfour != 'undefined')
     {
@@ -7,7 +7,7 @@ jcmp.events.AddRemoteCallable('ClickSpace', (player, column) =>
     }
 })
 
-jcmp.events.AddRemoteCallable('CloseWindow', (player) => 
+jcmp.events.AddRemoteCallable('findfour/CloseWindow', (player) => 
 {
     player.infindfourlobby = false;
     if (typeof player.findfour != 'undefined')

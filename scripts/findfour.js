@@ -28,7 +28,7 @@ class FindFour
             player.findfour = [];
             player.findfour.instance = this;
             player.findfour.index = index;
-            jcmp.events.CallRemote('StartGame', player, this.players[0].name, this.players[1].name, index == 0);
+            jcmp.events.CallRemote('findfour/StartGame', player, this.players[0].name, this.players[1].name, index == 0);
             index++;
         });
 
@@ -45,7 +45,7 @@ class FindFour
         this.turn = index;
         this.players.forEach(player => 
         {
-            jcmp.events.CallRemote('ChangeTurn', player, player.findfour.index == this.turn);
+            jcmp.events.CallRemote('findfour/ChangeTurn', player, player.findfour.index == this.turn);
         })
 
         if (index == 1 && this.players.length == 1) // For testing
@@ -84,7 +84,7 @@ class FindFour
         this.board[column][row] = index;
         this.players.forEach(p => 
         {
-            jcmp.events.CallRemote('PlacePiece', p, column, row, (index == 0) ? "red" : "blue");
+            jcmp.events.CallRemote('findfour/PlacePiece', p, column, row, (index == 0) ? "red" : "blue");
         });
 
         let winner = this.check_for_winner(column, row, index);

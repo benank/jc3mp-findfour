@@ -3,33 +3,33 @@ ui.autoResize = true;
 
 jcmp.ui.AddEvent('findfour/ClickSpace', (column) => 
 {
-    jcmp.events.CallRemote('ClickSpace', column);
+    jcmp.events.CallRemote('findfour/ClickSpace', column);
 })
 
 jcmp.ui.AddEvent('findfour/CloseWindow', () => 
 {
     jcmp.localPlayer.controlsEnabled = true;
-    jcmp.events.CallRemote('CloseWindow');
+    jcmp.events.CallRemote('findfour/CloseWindow');
 })
 
-jcmp.events.AddRemoteCallable('PlacePiece', (column, row, color) => 
+jcmp.events.AddRemoteCallable('findfour/PlacePiece', (column, row, color) => 
 {
     jcmp.ui.CallEvent('findfour/PlacePiece', column, row, color);
 })
 
-jcmp.events.AddRemoteCallable('StartGame', (player1, player2, first) => 
+jcmp.events.AddRemoteCallable('findfour/StartGame', (player1, player2, first) => 
 {
     jcmp.ui.CallEvent('findfour/StartGame', player1, player2, first);
     ui.hidden = false;
     jcmp.localPlayer.controlsEnabled = false;
 })
 
-jcmp.events.AddRemoteCallable('ChangeTurn', (myturn) => 
+jcmp.events.AddRemoteCallable('findfour/ChangeTurn', (myturn) => 
 {
     jcmp.ui.CallEvent('findfour/ChangeTurn', myturn);
 })
 
-jcmp.events.AddRemoteCallable('EndGame', () => 
+jcmp.events.AddRemoteCallable('findfour/EndGame', () => 
 {
     ui.hidden = true;
     jcmp.ui.CallEvent('findfour/EndGame');
